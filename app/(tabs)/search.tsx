@@ -7,6 +7,9 @@ import {useEffect} from "react";
 import CartButton from "@/components/CartButton";
 import cn from "clsx";
 import {MenuItem} from "@/type";
+import MenuCard from "@/components/MenuCard";
+import SearchBar from '@/components/SearchBar';
+import Filter from '@/components/Filter';
 
 
 const Search = () => {
@@ -28,7 +31,7 @@ const Search = () => {
 
                     return (
                         <View className={cn("flex-1 max-w-[48%]", !isFirstRightColItem ? 'mt-10': 'mt-0')}>
-                           <Text>{item.name}</Text>
+                         <MenuCard item={item as MenuItem} />
                         </View>
                     )
                 }}
@@ -48,6 +51,8 @@ const Search = () => {
 
                             <CartButton />
                         </View>
+                        <SearchBar/>
+                        <Filter categories={categories as any}/>
 
                       
                     </View>
