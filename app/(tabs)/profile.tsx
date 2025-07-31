@@ -41,6 +41,7 @@ const Profile = () => {
               source={{ uri: user?.avatar }}
               className="w-[100px] h-[100px] rounded-full"
               resizeMode="cover"
+              alt='User Avatar'
             />
             <View className="absolute bottom-0 right-0 bg-primary rounded-full h-8 w-8 items-center justify-center">
               <Image

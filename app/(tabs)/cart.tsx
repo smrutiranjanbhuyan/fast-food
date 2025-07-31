@@ -1,12 +1,12 @@
-import {View, Text, FlatList} from 'react-native'
-import {SafeAreaView} from "react-native-safe-area-context";
-import {useCartStore} from "@/store/cart.store";
-import CustomHeader from "@/components/CustomHeader";
-import cn from "clsx";
-import CustomButton from "@/components/CustomButton";
 import CartItem from '@/components/CartItem';
-import { PaymentInfoStripeProps } from '@/type';
-import PaymentInfoStripe  from '@/components/PaymentInfoStripe';
+import CustomButton from "@/components/CustomButton";
+import CustomHeader from "@/components/CustomHeader";
+import EmptyState from '@/components/EmptyState';
+import PaymentInfoStripe from '@/components/PaymentInfoStripe';
+import { images } from '@/constants';
+import { useCartStore } from "@/store/cart.store";
+import { FlatList, Text, View } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Cart = () => {
     const { items, getTotalItems, getTotalPrice } = useCartStore();
@@ -22,7 +22,10 @@ const Cart = () => {
                 keyExtractor={(item) => item.id}
                 contentContainerClassName="pb-28 px-5 pt-5"
                 ListHeaderComponent={() => <CustomHeader title="Your Cart" />}
-                ListEmptyComponent={() => <Text>Cart Empty</Text>}
+                ListEmptyComponent={() => <EmptyState title="Your cart is empty"
+                    description="Add items to your cart to place an order."
+                    image={images.emptyState}
+                />}
                 ListFooterComponent={() => totalItems > 0 && (
                     <View className="gap-5">
                         <View className="mt-6 border border-gray-200 p-5 rounded-2xl">
