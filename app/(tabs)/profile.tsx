@@ -49,14 +49,15 @@ const Profile = () => {
           <View className="mt-10 w-full space-y-4 gap-4">
             <CustomButton
               title="Edit Profile"
-              style="bg-[#FE8C00]/10 rounded-full py-4 w-full border border-[#FE8C00] flex-row items-center justify-center gap-x-3"
-              textStyle="text-[#FE8C00] font-semibold text-base"
+              style="bg-primary/10 rounded-full py-4 w-full border border-primary flex-row items-center justify-center gap-x-3"
+              textStyle="text-primary font-semibold text-base"
               onPress={() => console.log('Edit Profile')}
             />
             <CustomButton
               title="Logout"
-              style="bg-[#F14141]/10 rounded-full py-4 w-full border border-[#F14141] flex-row items-center justify-center gap-x-3"
-              textStyle="text-[#F14141] font-semibold text-base"
+              style="bg-error/10 rounded-full py-4 w-full border border-error flex-row items-center justify-center gap-x-3"
+              textStyle="text-error font-semibold text-base"
+              leftIcon={<Image source={images.logout} className="h-5 w-5" resizeMode="contain" />}
               onPress={() => console.log('Logout')}
             />
           </View>
