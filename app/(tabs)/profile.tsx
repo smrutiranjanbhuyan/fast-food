@@ -2,14 +2,28 @@ import CustomButton from '@/components/CustomButton';
 import CustomHeader from '@/components/CustomHeader';
 import ProfileName from '@/components/ProfileName';
 import { images } from '@/constants';
+import { signOut } from '@/lib/appwrite';
 import useAuthStore from '@/store/auth.store';
 import React from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { Alert, Image, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 const Profile = () => {
   const { user } = useAuthStore();
-  console.log('User:', user);
+  // console.log('User:', user);
+  const { logOutUser } = useAuthStore();
+  const handelLogout = () => {
+    try {
+      signOut();
+      logOutUser();
+    } catch (error) {
+      console.error('Logout failed:', error);
+      Alert.alert(
+        'Logout Failed',
+        'An error occurred while trying to log out. Please try again later.',
+        [{ text: 'OK' }]
+      );
+    }
+  }
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -58,7 +72,7 @@ const Profile = () => {
               style="bg-error/10 rounded-full py-4 w-full border border-error flex-row items-center justify-center gap-x-3"
               textStyle="text-error font-semibold text-base"
               leftIcon={<Image source={images.logout} className="h-5 w-5" resizeMode="contain" />}
-              onPress={() => console.log('Logout')}
+              onPress={handelLogout}
             />
           </View>
         </View>

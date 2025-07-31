@@ -10,6 +10,7 @@ type AuthState = {
     setUser: (user: User) => void;
     setLoading: (loading: boolean) => void;
     fetchAuthenticatedUser: () => Promise<void>;
+    logOutUser: () => void;
 };
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -40,7 +41,11 @@ const useAuthStore = create<AuthState>((set) => ({
         } finally {
             set({ isLoading: false });
         }
-    }
+    },
+    logOutUser: () => set(
+        { isAuthenticated: false, user: null }
+    )
+    
 }));
 
 export default useAuthStore;
