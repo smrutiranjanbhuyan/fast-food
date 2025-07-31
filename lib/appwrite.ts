@@ -61,8 +61,7 @@ export const createUser = async ({ name, email, password }: CreateUserParams) =>
 export const signIn = async ({ email, password }: SignInParams) => {
   try {
     const session = await account.createEmailPasswordSession(email, password);
-
-
+    
   } catch (error: any) {
     throw new Error(error.message || "Sign in failed");
   }
@@ -112,7 +111,7 @@ export const getMenu = async ({ category, query, limit = 6 }: GetMenuParams) => 
 
     if (category) queries.push(Query.equal('categories', category));
     if (query) queries.push(Query.search('name', query));
-    
+
     queries.push(Query.limit(limit));
 
     const menus = await databases.listDocuments(
@@ -127,14 +126,14 @@ export const getMenu = async ({ category, query, limit = 6 }: GetMenuParams) => 
   }
 };
 export const getCategories = async () => {
-    try {
-        const categories = await databases.listDocuments(
-            appwriteConfig.databaseId,
-            appwriteConfig.categoryCollectionId,
-        )
+  try {
+    const categories = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.categoryCollectionId,
+    )
 
-        return categories.documents;
-    } catch (e) {
-        throw new Error(e as string);
-    }
+    return categories.documents;
+  } catch (e) {
+    throw new Error(e as string);
+  }
 }
