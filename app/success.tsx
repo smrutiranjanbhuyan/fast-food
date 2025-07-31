@@ -14,7 +14,7 @@ const Success = () => {
                     <Image source={images.logo} className='self-center size-48 absolute -bottom-16 z-10' />
                 </View>
 
-                <View className=" bg-white rounded-lg  p-5 mt-5' flex-1 items-center justify-center z-10 ">
+                <View className=" bg-white rounded-lg  p-5 mt-5' flex-1 items-center justify-center  ">
 
                     <View className="w-14 h-1.5 bg-gray-300 rounded-xl self-center mb-6 mt-2" />
 
