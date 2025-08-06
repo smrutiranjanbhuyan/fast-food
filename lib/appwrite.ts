@@ -125,6 +125,23 @@ export const getMenu = async ({ category, query, limit = 6 }: GetMenuParams) => 
     throw new Error(e as string);
   }
 };
+
+export const getMenuById = async ({ id }: { id: string }) => {
+  try {
+    const menu = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.menuCollectionId,
+      id
+    );
+
+    return menu; 
+  } catch (e: any) {
+    throw new Error(e.message || "Failed to fetch menu by ID");
+  }
+};
+
+
+
 export const getCategories = async () => {
   try {
     const categories = await databases.listDocuments(
