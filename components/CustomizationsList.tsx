@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import Options from "./Options";
 
@@ -14,6 +14,7 @@ interface CustomizationsListProps {
   type: "topping" | "side";
   backendData: { customizations: CustomizationItem[] }[];
   localData: CustomizationItem[];
+  onSelect?: (selected: CustomizationItem[]) => void;
 }
 
 const CustomizationsList: React.FC<CustomizationsListProps> = ({
@@ -21,7 +22,10 @@ const CustomizationsList: React.FC<CustomizationsListProps> = ({
   type,
   backendData,
   localData,
+  onSelect,
 }) => {
+  const [selectedItems, setSelectedItems] = useState<CustomizationItem[]>([]);
+
   const filteredData = backendData
     .flatMap((m) => m.customizations)
     .filter((item) => item.type === type)
@@ -31,6 +35,17 @@ const CustomizationsList: React.FC<CustomizationsListProps> = ({
     .filter(Boolean) as CustomizationItem[];
 
   if (filteredData.length === 0) return null;
+
+  const toggleSelect = (item: CustomizationItem) => {
+    let updated;
+    if (selectedItems.some((s) => s.name === item.name)) {
+      updated = selectedItems.filter((s) => s.name !== item.name);
+    } else {
+      updated = [...selectedItems, item];
+    }
+    setSelectedItems(updated);
+    onSelect?.(updated);
+  };
 
   return (
     <View className="px-4 mt-6">
@@ -46,9 +61,8 @@ const CustomizationsList: React.FC<CustomizationsListProps> = ({
               title={item.name}
               image={item.image}
               price={item.price}
-              onPress={() =>
-                console.log("Added:", item.name, "Price:", item.price)
-              }
+              selected={selectedItems.some((s) => s.name === item.name)}
+              onPress={() => toggleSelect(item)}
             />
           </View>
         )}
