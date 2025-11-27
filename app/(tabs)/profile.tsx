@@ -7,9 +7,13 @@ import useAuthStore from '@/store/auth.store';
 import React from 'react';
 import { Alert, Image, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+
 const Profile = () => {
   const { user } = useAuthStore();
-  console.log('User:', user);
+  // console.log('User:', user);
+  console.log();
+  
   const { logOutUser } = useAuthStore();
   const handelLogout = () => {
     try {
