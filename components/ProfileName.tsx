@@ -4,7 +4,7 @@ import { Image, Text, View } from 'react-native';
 const ProfileName = ({
   icon = null,
   title = 'Full Name',
-  subtitle = 'Adrian Hajdin',
+  subtitle = 'Smruti ',
 }) => {
   return (
     <View className='flex-row items-center bg-white p-4 rounded-lg'>

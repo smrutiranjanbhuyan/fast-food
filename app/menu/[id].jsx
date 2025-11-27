@@ -61,7 +61,7 @@ const ItemDetails = () => {
     addItem({
       id: id,
       name: data.name,
-      price: data.price || 0, // ✅ only base price
+      price: data.price || 0, 
       image_url: data.image_url,
       quantity,
       customizations: selectedCustomizations,

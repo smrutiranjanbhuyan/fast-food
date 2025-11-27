@@ -9,7 +9,7 @@ import { Alert, Image, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const Profile = () => {
   const { user } = useAuthStore();
-  // console.log('User:', user);
+  console.log('User:', user);
   const { logOutUser } = useAuthStore();
   const handelLogout = () => {
     try {
@@ -56,7 +56,7 @@ const Profile = () => {
           <View className="w-full bg-white rounded-2xl px-[14px] py-5 shadow-md space-y-[30px]">
             <ProfileName icon={images.user} title="Full Name" subtitle={user?.name} />
             <ProfileName icon={images.envelope} title="Email" subtitle={user?.email} />
-            <ProfileName icon={images.phone} title="Phone Number" subtitle="1132323" />
+            <ProfileName icon={images.phone} title="Phone Number" subtitle={user?.phone} />
             <ProfileName icon={images.location} title="Address" subtitle="New York, USA" />
           </View>
 
