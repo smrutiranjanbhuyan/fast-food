@@ -1,4 +1,5 @@
 import { images } from '@/constants';
+import cn from "clsx";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 interface OptionsProps {
@@ -14,9 +15,10 @@ const Options: React.FC<OptionsProps> = ({ title, price, image, onPress, selecte
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.8}
-      className={`w-28 h-36 rounded-2xl overflow-hidden shadow-lg ${selected ? 'border-2 border-indigo-600' : 'border border-transparent'
-        }`}
-
+      className={cn(
+        "w-28 h-36 rounded-2xl overflow-hidden shadow-lg",
+        selected ? "border-2 border-indigo-600" : "border border-transparent"
+      )}
     >
       <View className="bg-white w-full flex items-center justify-center py-4 rounded-t-2xl flex-1">
         <Image
