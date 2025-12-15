@@ -79,27 +79,23 @@ export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
 
-    if (!currentAccount) {
-      throw new Error("No active account session found");
-    }
-
     const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      [
-        Query.equal('accountId', currentAccount.$id)
-      ]
+      [Query.equal('accountId', currentAccount.$id)]
     );
 
     if (!currentUser.documents.length) {
-      throw new Error("User not found in database");
+      return null;
     }
 
     return currentUser.documents[0];
-
   } catch (error: any) {
-    console.error("getCurrentUser error:", error.message);
-    throw new Error(error.message || "Failed to get current user");
+    if (error?.code === 401) {
+      return null;
+    }
+    console.warn('Unexpected getCurrentUser error:', error);
+    return null;
   }
 };
 

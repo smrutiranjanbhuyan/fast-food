@@ -18,7 +18,7 @@ const TabBarIcon = ({ focused, icon, title }: TabBarIconProps) => (
 
 const TabLayout = () => {
   const { isAuthenticated, isLoading } = useAuthStore();
-  console.log('isAuthenticated', isAuthenticated, 'isLoading', isLoading);
+  // console.log('isAuthenticated', isAuthenticated, 'isLoading', isLoading);
 
   if (!isAuthenticated) return <Redirect href="/sign-in" />;
   return (
