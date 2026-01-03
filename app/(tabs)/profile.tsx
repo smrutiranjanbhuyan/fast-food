@@ -1,20 +1,22 @@
 import CustomButton from '@/components/CustomButton';
 import CustomHeader from '@/components/CustomHeader';
+import LocationPicker from '@/components/LocationPicker';
 import ProfileName from '@/components/ProfileName';
 import { images } from '@/constants';
 import { signOut } from '@/lib/appwrite';
+import { useLocality } from '@/lib/useLocality';
 import useAuthStore from '@/store/auth.store';
-import React from 'react';
-import { Alert, Image, ScrollView, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 
 const Profile = () => {
   const { user } = useAuthStore();
-  // console.log('User:', user);
-  console.log();
+  const { locality, loading: locationLoading, refreshLocality } = useLocality(); // 🔹 Get locality
+  const [showPicker, setShowPicker] = useState(false);
   
   const { logOutUser } = useAuthStore();
+
   const handelLogout = () => {
     try {
       signOut();
@@ -27,7 +29,11 @@ const Profile = () => {
         [{ text: 'OK' }]
       );
     }
-  }
+  };
+
+  const handleLocationUpdate = () => {
+    refreshLocality(); 
+  };
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -61,7 +67,18 @@ const Profile = () => {
             <ProfileName icon={images.user} title="Full Name" subtitle={user?.name} />
             <ProfileName icon={images.envelope} title="Email" subtitle={user?.email} />
             <ProfileName icon={images.phone} title="Phone Number" subtitle={user?.phone} />
-            <ProfileName icon={images.location} title="Address" subtitle="New York, USA" />
+            
+            {/* 🔹 Address with dynamic location - Make it tappable */}
+            <TouchableOpacity 
+              onPress={() => setShowPicker(true)}
+              activeOpacity={0.7}
+            >
+              <ProfileName 
+                icon={images.location} 
+                title="Address" 
+                subtitle={locationLoading ? "Loading location..." : locality} 
+              />
+            </TouchableOpacity>
           </View>
 
           {/* Buttons */}
@@ -82,6 +99,14 @@ const Profile = () => {
           </View>
         </View>
       </ScrollView>
+
+      {/* 🔹 Location Picker Modal */}
+      {showPicker && (
+        <LocationPicker
+          onClose={() => setShowPicker(false)}
+          onLocationUpdate={handleLocationUpdate}
+        />
+      )}
     </SafeAreaView>
   );
 };
