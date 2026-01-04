@@ -13,7 +13,7 @@ import {
 import MapView, {
   MapPressEvent,
   Marker,
-  PROVIDER_GOOGLE,
+  // PROVIDER_GOOGLE,
   Region,
 } from "react-native-maps";
 
@@ -222,7 +222,7 @@ export default function LocationPicker({ onClose, onLocationUpdate }: LocationPi
 
       <MapView
         ref={mapRef}
-        provider={PROVIDER_GOOGLE}
+        // provider={PROVIDER_GOOGLE}
         style={StyleSheet.absoluteFillObject}
         initialRegion={region}
         onPress={onMapPress}
