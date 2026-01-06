@@ -17,10 +17,12 @@ export interface Category extends Models.Document {
 }
 
 export interface User extends Models.Document {
+    id: string;
+    accountId: string;
     name: string;
-    email: string;
-    avatar: string;
+    email?: string;
     phone?: string;
+    avatar?: string;
 }
 
 export interface CartCustomization {
@@ -95,6 +97,7 @@ interface CreateUserParams {
     email: string;
     password: string;
     name: string;
+    phone?: string;
 }
 
 interface SignInParams {
@@ -105,5 +108,5 @@ interface SignInParams {
 interface GetMenuParams {
     category: string;
     query: string;
-    limit?:number;
+    limit?: number;
 }

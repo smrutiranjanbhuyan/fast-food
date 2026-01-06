@@ -26,9 +26,19 @@ export const databases = new Databases(client);
 export const avatars = new Avatars(client);
 export const storage = new Storage(client);
 
-export const createUser = async ({ name, email, password }: CreateUserParams) => {
+export const createUser = async ({
+  name,
+  email,
+  phone,
+  password,
+}: CreateUserParams) => {
   try {
-    const newAccount = await account.create(ID.unique(), email, password, name);
+    const newAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      name
+    );
 
     if (!newAccount) throw new Error("Account creation failed");
 
@@ -44,12 +54,12 @@ export const createUser = async ({ name, email, password }: CreateUserParams) =>
         accountId: newAccount.$id,
         email,
         name,
+        phone,
         avatar: avatarUrl,
       }
     );
 
     return newUser;
-
   } catch (error: any) {
     throw new Error(error.message || "Error creating user");
   }
@@ -82,23 +92,31 @@ export const getCurrentUser = async () => {
     const currentUser = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      [Query.equal('accountId', currentAccount.$id)]
+      [Query.equal("accountId", currentAccount.$id)]
     );
 
     if (!currentUser.documents.length) {
       return null;
     }
 
-    return currentUser.documents[0];
+    const userDoc = currentUser.documents[0];
+
+    return {
+      id: userDoc.$id,
+      accountId: currentAccount.$id,
+      name: userDoc.name ?? currentAccount.name,
+      email: currentAccount.email,
+      phone: currentAccount.phone,
+      ...userDoc,
+    };
   } catch (error: any) {
     if (error?.code === 401) {
       return null;
     }
-    console.warn('Unexpected getCurrentUser error:', error);
+    console.warn("Unexpected getCurrentUser error:", error);
     return null;
   }
 };
-
 
 export const getMenu = async ({ category, query, limit = 6 }: GetMenuParams) => {
   try {
