@@ -27,7 +27,7 @@ const ItemDetails = () => {
   const { addItem } = useCartStore();
   const router = useRouter();
   const { id } = useLocalSearchParams();
-console.log("Menu Item ID:", id);
+// console.log("Menu Item ID:", id);
   const { data, loading, error } = useAppwrite({
     fn: getMenuById,
     params: { id },
